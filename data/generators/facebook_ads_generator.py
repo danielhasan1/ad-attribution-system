@@ -137,7 +137,7 @@ def generate_facebook_performance(campaigns_df, days=30):
                 'impressions': impressions,
                 'clicks': clicks,
                 'spend': round(spend, 2),
-                'conversion': conversions,
+                'conversions': conversions,
                 'revenue': round(revenue, 2),  # Now this will work
                 'cpc': round(daily_cpc, 2),
                 'cpm': round((spend / impressions) * 1000, 2),

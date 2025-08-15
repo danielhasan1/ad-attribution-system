@@ -5,6 +5,7 @@ from functools import wraps
 import logging
 from typing import Optional, Dict, Any, List, Callable
 from config.config import DB_CONFIG
+from pandas import DataFrame
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -134,6 +135,10 @@ def load_performance_data(performance_df):
     data = performance_df.to_dict('records')
     return db_manager.bulk_insert('daily_performance', data, batch_size=1000)
 
+def load_journey_data(journey_df):
+    data = journey_df.to_dict('records')
+    return db_manager.bulk_insert('user_touchpoints', data, batch_size=1000)
+
 
 # Example 3: Data quality check decorator
 # @db_manager.db_operation(dict_cursor=True)
@@ -166,3 +171,11 @@ def load_performance_data(performance_df):
 #     checks['invalid_spend'] = cursor.fetchone()['invalid_spend']
 #
 #     return checks
+
+@db_manager.db_operation(autocommit=False, dict_cursor=True)
+def read_campaign_data(cursor, conn):
+    """Read campaign data using context manager"""
+    cursor.execute('select * from campaigns')
+    df = DataFrame.from_records(cursor.fetchall(),
+                                   columns=[desc[0] for desc in cursor.description])
+    return df
