@@ -24,11 +24,13 @@ def generate_facebook_campaigns(num_campaigns=20):
         campaign = {
             'campaign_id': f'fb_camp_{i + 1:03d}',
             'platform': 'facebook',
+            'product':f'Product_{i + 1:03d}',
             'campaign_name': f"FB Campaign {campaign_name}",
             'campaign_type': random.choice(['awareness', 'conversion', 'engagement']),
             'daily_budget': random.uniform(1000, 50000),
             'status': random.choice(['active', 'paused']),
-            'created_date': fake.date_between(start_date='-90d', end_date='today')
+            'created_date': fake.date_between(start_date='-90d', end_date='today'),
+            'product': f'Product_{i + 1:03d}',
         }
         campaigns.append(campaign)
     return pd.DataFrame(campaigns)

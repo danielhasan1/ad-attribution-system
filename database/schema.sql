@@ -2,6 +2,7 @@
 CREATE TABLE campaigns (
 	campaign_id VARCHAR(50) PRIMARY KEY,
 	platform VARCHAR(20) NOT NULL, -- google | facebook
+	product VARCHAR(20) NOT NULL -- to tie different campaign together
 	campaign_name VARCHAR(100),
 	campaign_type VARCHAR(50),
 	daily_budget DECIMAL(10, 2),

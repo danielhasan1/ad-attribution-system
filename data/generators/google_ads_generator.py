@@ -53,7 +53,8 @@ def generate_google_campaigns(num_campaigns=20):
             'status': random.choice(ad_statuses),
             # 'network_settings': random.choice(networks),
             # 'location_target': fake.country(),
-            'created_date': fake.date_between(start_date='-90d', end_date='today')
+            'created_date': fake.date_between(start_date='-90d', end_date='today'),
+            'product': f'Product_{i + 1:03d}',
         }
         campaigns.append(campaign)
     return pd.DataFrame(campaigns)
